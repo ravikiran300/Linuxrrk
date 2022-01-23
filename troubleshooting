@@ -12,6 +12,17 @@ pmap (processid)  memory used by process
 
 check iostat(if disk read and write values are more. problem might be disk
 
+check list of files or network files anything running or not.
+lsof -i -P -n | grep -n LISTEN ( -i ssh)
+if there still network issue check the firewall
+
+
+network
+
+ping google.com 
+
+tcpdump -i | grep -i ipofgoogle
+
 script (disk usage)
 ======
 
