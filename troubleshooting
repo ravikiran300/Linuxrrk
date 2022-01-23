@@ -1,9 +1,16 @@
+system running slow
+======================
+
 df -h | grep -v tmpfs
 check the disk mount file which it is showing 99% or more
 
 du -sh /(mount path)
 
 du -ah / | sort -nr
+
+pmap (processid)  memory used by process
+
+check iostat(if disk read and write values are more. problem might be disk
 
 script (disk usage)
 ======
@@ -110,4 +117,3 @@ get_mount_partitions() {
                 fi
         done
 }
-"/usr/local/bin/find_disk_usage.sh" [readonly] 58L, 1392C                                                                                             1,1           Top
