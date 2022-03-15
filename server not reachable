@@ -1,0 +1,19 @@
+server not reachable
+=====================
+ping hostname/ip
+
+netstat hostname (address)
+
+If IP is NOT pingable
+• Ping another server by name and then by IP
+• Checking if your server has an IP address
+• Ping your gateway/modem IP
+• Check physical cable connection
+• Check your routing table.
+
+resolv.conf specifies the nameservers for resolver lookups, where it will actually use the DNS protocol for resolving the hostnames.
+
+Typically the hosts file is used for administrative purposes, such as backend and internal functions, which is substantially more isolated in scope, as only the local server will reference it.
+
+/etc/nsswitch.conf specifies the lookup order with the hosts entry.
+
