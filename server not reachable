@@ -62,3 +62,28 @@ telnet = command
 if still not reachable restart httpd service (systemctl service httpd)
 
 if telnet is running properly something wrong with client machine
+
+
+
+==============================================================================
+
+Cannot SSH as Root/User
+========================
+
+If connected = Service is running If NOT connected = Service is not running
+
+Login to the server and start the service
+
+If pingable = Connect to service
+telnet 192.168.1.5 22
+
+Root is NOT permitted
+Check for PermitRootLogin in
+/etc/ssh/sshd_conf
+User does NOT exist or has
+nologin shell
+
+check /var/log/secure.log
+
+id username
+/etc/password (/sbin/nologin)
