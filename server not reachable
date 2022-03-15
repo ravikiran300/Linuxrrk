@@ -14,9 +14,12 @@ If IP is NOT pingable
 
 and check 
 
- /etc/resolv.conf: Lists nameservers that are used by your host for DNS resolution. If you are using DHCP, this file is automatically populated with DNS record issued by DHCP server.
+ /etc/resolv.conf: Lists nameservers that are used by your host for DNS resolution. 
+If you are using DHCP, this file is automatically populated with DNS record issued by DHCP server.
  /etc/hosts/: It is just a static lookup method for resolution.
- /etc/nsswitch.conf: It defined order of resolution. Who should it consult first for resolution, a DNS or a host file? For example, if the file has following configuration hosts: files dns then /etc/hosts file will be checked first for resolution, if domain is still un-resolvable, DNS will then be consulted.
+ /etc/nsswitch.conf: It defined order of resolution. Who should it consult first for resolution, a DNS or a host file?
+ For example, if the file has following configuration hosts: files dns then /etc/hosts file will be checked first for resolution,
+ if domain is still un-resolvable, DNS will then be consulted.
  
  
 
@@ -37,14 +40,3 @@ hosts: files dns nisplus nis
 search domain1.org domain2.org
 nameserver 192.168.3.3
 nameserver 192.168.4.4
-
-
-
-
-
-resolv.conf specifies the nameservers for resolver lookups, where it will actually use the DNS protocol for resolving the hostnames.
-
-Typically the hosts file is used for administrative purposes, such as backend and internal functions, which is substantially more isolated in scope, as only the local server will reference it.
-
-/etc/nsswitch.conf specifies the lookup order with the hosts entry.
-
