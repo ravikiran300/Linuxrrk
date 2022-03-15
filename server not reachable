@@ -1,5 +1,8 @@
 server not reachable
 =====================
+
+https://drive.google.com/drive/u/1/folders/11A_Zs2bCDhwVPmPwz0PQ6bcM1gaJFriX
+
 ping hostname/ip
 
 netstat hostname
@@ -40,3 +43,22 @@ hosts: files dns nisplus nis
 search domain1.org domain2.org
 nameserver 192.168.3.3
 nameserver 192.168.4.4
+
+
+
+================
+
+
+Cannot Connect to a Website or an Application
+=============================================
+
+telnet 192.168.1.5 80 (http)
+ 
+ Where:
+telnet = command
+192.168.1.5 = IP address of target server
+80 = Port # of the service(httpd)
+
+if still not reachable restart httpd service (systemctl service httpd)
+
+if telnet is running properly something wrong with client machine
