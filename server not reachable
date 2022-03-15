@@ -83,6 +83,9 @@ Check for PermitRootLogin in
 User does NOT exist or has
 nologin shell
 
+
+systemctl status firewalld
+
 check /var/log/secure.log
 
 id username
