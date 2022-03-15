@@ -2,7 +2,8 @@ server not reachable
 =====================
 ping hostname/ip
 
-netstat hostname (address)
+netstat hostname
+netstat -rnv  (check your gateway which let u go out and route table 0.0.0.0 
 
 If IP is NOT pingable
 • Ping another server by name and then by IP
@@ -11,8 +12,7 @@ If IP is NOT pingable
 • Check physical cable connection
 • Check your routing table.
 
-
-
+and check 
 
  /etc/resolv.conf: Lists nameservers that are used by your host for DNS resolution. If you are using DHCP, this file is automatically populated with DNS record issued by DHCP server.
  /etc/hosts/: It is just a static lookup method for resolution.
