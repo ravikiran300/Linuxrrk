@@ -90,3 +90,10 @@ check /var/log/secure.log
 
 id username
 /etc/password (/sbin/nologin)
+
+=================
+
+ifup networkinterfacename
+ifdown networkinterfacename
+
+
