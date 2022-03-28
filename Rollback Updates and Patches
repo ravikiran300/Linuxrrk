@@ -1,0 +1,13 @@
+Rollback a package or patch
+• yum install <package-name>
+• yum history undo <id>
+
+rpm -qa | grep pkg name
+
+
+Rollback an update
+• Downgrading a system to minor version (ex: RHEL7.1 to RHEL7.0) is not recommended
+as this might leave the system in undesired or unstable state
+• yum update= Update will preserve them
+• yum upgrade = Upgrade will delete obsolete packages
+• yum history undo <id>
