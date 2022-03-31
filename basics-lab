@@ -1,0 +1,24 @@
+scp file.txt ravikiran@192.168.1.2:/home/ravikiran
+
+rpm hiv package.rpm
+rpn iq | grep packagename
+
+Linux os hardening
+
+user account
+remove unwanted package
+stop unused packages
+check on listening ports
+secure ssh configuration
+enalbe firewalld
+enable SElinux
+changing sevice for different port (change ssh to different port)
+keep your os update to date
+
+https://www.tecmint.com/linux-server-hardening-security-tips/
+
+https://linuxize.com/post/fsck-command-in-linux/
+
+https://www.linuxtechi.com/repair-corrupted-xfs-filesystem-xfs-repair/
+
+https://www.tecmint.com/linux-system-backup-tools/
