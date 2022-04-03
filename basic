@@ -1,0 +1,20 @@
+https://www.howtogeek.com/177213/linux-isnt-just-linux-8-pieces-of-software-that-make-up-linux-systems/
+
+Bootloader
+The Linux Kernel
+Daemons
+The Shell
+
+=========================
+
+Both UEFI and BIOS are low-level software that starts when you boot your PC before booting your operating system, 
+but UEFI is a more modern solution, supporting larger hard drives, faster boot times, more security features, and—conveniently—graphics and mouse cursors.
+
+The BIOS goes through a POST, or Power-On Self Test, before booting your operating system. It checks to ensure your hardware configuration is valid and working properly.
+If something is wrong, you’ll see an error message or hear a cryptic series of beep codes. 
+You’ll have to look up what different sequences of beeps mean in the computer’s manual.
+
+===
+
+When your computer boots—and after the POST finishes—the BIOS looks for a Master Boot Record, or MBR,
+stored on the boot device and uses it to launch the bootloader.
