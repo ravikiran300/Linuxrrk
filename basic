@@ -1,5 +1,8 @@
 https://www.howtogeek.com/177213/linux-isnt-just-linux-8-pieces-of-software-that-make-up-linux-systems/
 
+https://www.udemy.com/course/advanced-linux-administration/
+
+
 Bootloader
 The Linux Kernel
 Daemons
@@ -18,3 +21,8 @@ You’ll have to look up what different sequences of beeps mean in the computer�
 
 When your computer boots—and after the POST finishes—the BIOS looks for a Master Boot Record, or MBR,
 stored on the boot device and uses it to launch the bootloader.
+
+When your computer boots—and after the POST finishes—the BIOS looks for a Master Boot Record, 
+or MBR, stored on the boot device and uses it to launch the bootloader.
+
+====
