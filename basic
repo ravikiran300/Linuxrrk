@@ -55,4 +55,10 @@ Let's explain the syntax of this line:
 
     The first ALL means the rule applies to all hosts using the same /etc/sudoers file. Nowadays, this means the current host since the same file is not shared across other machines.
     Next, (ALL) ALL tells us that pluralsight will be allowed to run all commands as any user. Functionally speaking, this is equivalent to (root) ALL.
+    
+    =================================================
+    
+    df -h | grep -v tmpfs
+    /etc/fstab fileds
+    
 
