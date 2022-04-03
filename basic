@@ -74,4 +74,32 @@ Let's explain the syntax of this line:
    fsck.xfs /dev/sda1 for consistency check
    xfs_repair /dev/sda1 for repairing the disk
     
+    ==================================================
+    
+    find /path/to/files/ -type f -name '*.jpg' -mtime +30 -exec rm {} \;
+    
+    find /path/to/files/ -mtime +30  -exec ls -l {} \;
+    find /path/to/files/ -mtime +30  -exec rm {} \;
+        find /path/to/files/ -mtime +30  -exec mv {} {}.old  {} \;
+        
+        find / -name ravikiran
+    ====================================================
+   
+    add disk and add more space
+    ADD DISKS AND CREATE LVM PARTITIONS
+    TAKE SNAPSHOTS OF LVM AND EXTENDED LVM
+    recover LVM2 partition, PV, VG, LVM metdata in Linux
+    
+    ACL,symbolic links
+    
+    ======================
+    getfacl,setfacl
+
+    
+   
+
+
+    
+    
+    
 
