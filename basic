@@ -26,3 +26,33 @@ When your computer boots—and after the POST finishes—the BIOS looks for a Ma
 or MBR, stored on the boot device and uses it to launch the bootloader.
 
 ====
+
+wild cards
+==========
+
+ls -l o??d 
+If we want to list all files that begin with O, end with d and have two characters in between, we can use the following syntax:
+
+=
+ls -l o*d
+To list all files that begin with O and end with d, no matter the number of character in between, we can use the following syntax
+
+=
+To list all files that begin with O and end with d and have a or c in between, we need to use the following syntax:ls -l a[ac]d
+
+=====================================================================
+
+https://www.pluralsight.com/blog/it-ops/linux-file-permissions
+
+
+=====================================
+
+pluralsight ALL=(ALL) ALL
+
+Let's explain the syntax of this line:
+
+    First off, we indicate which user this rule refers to (pluralsight).
+
+    The first ALL means the rule applies to all hosts using the same /etc/sudoers file. Nowadays, this means the current host since the same file is not shared across other machines.
+    Next, (ALL) ALL tells us that pluralsight will be allowed to run all commands as any user. Functionally speaking, this is equivalent to (root) ALL.
+
