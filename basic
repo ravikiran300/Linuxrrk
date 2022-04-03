@@ -61,4 +61,17 @@ Let's explain the syntax of this line:
     df -h | grep -v tmpfs
     /etc/fstab fileds
     
+    troubleshoot
+    
+   receue mode
+   /mnt/sysimage/
+   and change the file that contains miss spleels for drive
+   
+   =================
+   
+   umount the drive
+   fsck /dev/sda1
+   fsck.xfs /dev/sda1 for consistency check
+   xfs_repair /dev/sda1 for repairing the disk
+    
 
