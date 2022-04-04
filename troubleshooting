@@ -1,6 +1,8 @@
 access= AKIARAJTNFC7PG3TOH5
 secret= ng3DYP979vfZLUYJRhgK7AacQZwTlpOJrDkkBJU
 
+ssh -i "ansible.pem" ec2-user@ec2-52-66-14-187.ap-south-1.compute.amazonaws.com
+
 system running slow
 ======================
 
