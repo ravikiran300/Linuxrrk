@@ -133,6 +133,7 @@ find / -perm 7555
 
 https://linuxize.com/post/how-to-add-swap-space-on-centos-7/
 
+find /path -size +10M
 
 
     
