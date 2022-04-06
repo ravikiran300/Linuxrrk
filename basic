@@ -92,6 +92,8 @@ Let's explain the syntax of this line:
     
     ACL,symbolic links
     
+    https://www.thegeekdiary.com/centos-rhel-7-how-to-change-runlevels-in-rhel7-with-systemd/
+    
     ======================
     getfacl,setfacl
 
@@ -101,6 +103,27 @@ ipmitool.rb u012.ams1.turn.com chassis bootdev pxe
 difference between RAID0,1,2,3
 
 echo "- - -" >> /sys/class/scsi_host/host_$i/scan (SCAN A DEVICES WITH REBOOTING
+
+find /path/to/files/ -mtime +30  -exec ls -l {} \;
+
+cronjob and crontab (min,hr,day,day of month,month,day of week ,year command) 
+cat /etc/crontab
+crontab -e
+
+cat file | grep -v ^#
+
+
+=====================
+
+.bash_profile is read and executed when Bash is invoked as an interactive login shell, while .bashrc is executed for an interactive non-login shell.
+
+Use .bash_profile to run commands that should run only once, such as customizing the $PATH environment variable .
+
+cut -d: -f1 /etc/passwd
+-d is delimiter what comes after remove everthing
+-f1 is field limiter
+
+file redirections 
 
 
     
