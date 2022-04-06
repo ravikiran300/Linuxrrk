@@ -129,6 +129,12 @@ file redirections
 
 shutdown -r 23
 
+find / -perm 7555
+
+https://linuxize.com/post/how-to-add-swap-space-on-centos-7/
+
+
+
     
    
 
