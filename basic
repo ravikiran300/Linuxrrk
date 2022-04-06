@@ -135,6 +135,8 @@ https://linuxize.com/post/how-to-add-swap-space-on-centos-7/
 
 find /path -size +10M
 
+cat -n 1 (list the li
+
 
     
    
