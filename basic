@@ -125,6 +125,7 @@ cut -d: -f1 /etc/passwd
 
 file redirections 
 
+shutdown -r 23
 
     
    
