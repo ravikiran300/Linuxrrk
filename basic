@@ -112,6 +112,8 @@ crontab -e
 
 cat file | grep -v ^#
 
+find /bin  -perm 755 -ls 
+
 
 =====================
 
