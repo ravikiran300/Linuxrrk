@@ -95,6 +95,14 @@ Let's explain the syntax of this line:
     ======================
     getfacl,setfacl
 
+
+ipmitool.rb u012.ams1.turn.com chassis bootdev pxe
+
+difference between RAID0,1,2,3
+
+echo "- - -" >> /sys/class/scsi_host/host_$i/scan (SCAN A DEVICES WITH REBOOTING
+
+
     
    
 
