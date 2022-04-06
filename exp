@@ -1,0 +1,32 @@
+Linux kickstart
+
+For Kickstart, an administrator needs to set it up as a web server, at least one Kickstart configuration file, and an installation media. 
+An active DHCP server is also required so that after obtaining a valid DHCP address, new clients can find their Kickstart server and get Kickstarted.
+Moreover, Kickstart utilizes different installation channels such as local media and NFS, etc.
+
+Kickstart is responsible for installing an entire operating system from a specified list known as the Kickstart file.
+Your choices for installation are automatically stored in a Kickstart file named “/root/anaconda-ks.cfg”
+
+After an installation has been completed using Kickstart, check out the Kickstart file, and you will notice that it has all entries
+you made during the installation. Keyboard and timezone locale settings, disc partitioning information, networking information, package options, Installation type, and so forth are all examples of these entries.
+
+The most common way to using a Kickstart file is to place it in some exported NFS directory. After that, make it available over a web server, but other possibilities exist as well.
+
+Method 3: Using the Kickstart Graphical User Interface (GUI) Tool
+
+ksvalidator /path/to/Kickstart.ks
+yum install pykickstart
+$ ksverdiff -f RHEL6 -t RHEL7
+
+facter
+audits who done the server 
+
+supermicro
+DELL,HP
+
+templates => Kickstart default PXELinux
+create partition tables using templates based on requirement
+cd /var/lib/tftpboot
+
+ipmitool.rb u012.ams1.turn.com chassis bootdev pxe
+ipmitool.rb u012.ams1.turn.com chassis bootdev disk
