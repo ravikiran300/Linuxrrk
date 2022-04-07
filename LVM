@@ -3,3 +3,13 @@ you can create as many virtual storage volumes on top of a single storage device
 The logical storage volumes thus created can be expanded or shrunk according to your growing or reducing storage needs. 
 
 https://linuxhint.com/whatis_logical_volume_management/
+
+In this case, each of these physical devices has its own partitions and the respective file systems.
+The management of all of these partitions can become a mess if handled as it is. This is where the concept of logical volume management comes into play.
+It allows you to aggregate all the partitions of different physical devices into a single logical volume group from where they can be managed centrally. 
+
+From this volume group, you can extract multiple logical volumes depending upon your requirements.
+Moreover, the exact space allocated to each logical volume can also be increased or decreased depending upon your needs.
+
+
+
