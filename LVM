@@ -11,5 +11,52 @@ It allows you to aggregate all the partitions of different physical devices into
 From this volume group, you can extract multiple logical volumes depending upon your requirements.
 Moreover, the exact space allocated to each logical volume can also be increased or decreased depending upon your needs.
 
+creating physical volume
+lsblk
+pvcreate /dev/sdb
+pvs
+
+create volume group
+pvs(look into physcial volume created
+vgcreate new_vg /dev/sdb
+vgs
+
+
+create logical volume
+lsblk
+pvs
+vgs
+lvcreate -n test_lv -L 500M new_vg
+mkfs.ext4 /dev/new_vg/test_lv (make file system on this logical volume)
+(its  not mounted yet)
+
+mounting
+==
+mkdir /test
+mount /dev/new_vg/test_lv /test
+df -h
+
+add in /etc/fstab
+
+===========
+
+extending logical volume
+
+lvextend -L 700M /dev/new_vg/test_lv
+
+any issues
+resizefs /dev/new_vg/test_lv
+
+
+
+
+
+
+
+
+
+
+
+
 
 
