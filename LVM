@@ -68,9 +68,13 @@ the physical extentend of LVM is 4MB
 
 https://www.thegeekdiary.com/how-to-extend-an-lvm-swap-partition-in-linux/
 
-
+In order to create a LVM snapshot of a logical volume, you have to execute the “lvcreate” command with the “-s” option for “snapshot”,
+the “-L” option with the size and the name of the logical volume.
 
 snapshot
+https://devconnected.com/lvm-snapshots-backup-and-restore-on-linux/
+https://devconnected.com/logical-volume-management-explained-on-linux/
+https://www.thegeekdiary.com/how-to-recover-deleted-logical-volume-lv-in-lvm-using-vgcfgrestore/
 
 
 
