@@ -1,0 +1,5 @@
+The concept of logical volume management is very much similar to the concept of virtualization, i.e.
+you can create as many virtual storage volumes on top of a single storage device as you want. 
+The logical storage volumes thus created can be expanded or shrunk according to your growing or reducing storage needs. 
+
+https://linuxhint.com/whatis_logical_volume_management/
