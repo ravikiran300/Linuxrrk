@@ -59,6 +59,19 @@ lvreduce -L 400M /dev/new_vg/test_lv
 resizefs /dev/new_vg/test_lv
 mount /dev/new_vg/test_lv /test
 
+pvdisplay
+vgdisplay
+
+the physical extentend of LVM is 4MB
+
+=======================================
+
+https://www.thegeekdiary.com/how-to-extend-an-lvm-swap-partition-in-linux/
+
+
+
+snapshot
+
 
 
 
