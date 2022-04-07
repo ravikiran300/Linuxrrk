@@ -46,6 +46,18 @@ lvextend -L 700M /dev/new_vg/test_lv
 
 any issues
 resizefs /dev/new_vg/test_lv
+efsck /dev/new_vg/test_lv
+
+
+======================
+
+Reduce logical volume
+umount /test
+run e2fk on volume device
+e2fsck -f /dev/new_vg/test_lv
+lvreduce -L 400M /dev/new_vg/test_lv
+resizefs /dev/new_vg/test_lv
+mount /dev/new_vg/test_lv /test
 
 
 
