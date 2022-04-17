@@ -328,6 +328,9 @@ find /etc -atime +30
 0 12 * * * cd /var/log/hadoop-yarn/container; find . -name 'application_*' -type d -mtime +4 -exec rm -rf {} \;
 
 
+cut, sort, grep, awk, uniq, wc
+
+
 
 
 
