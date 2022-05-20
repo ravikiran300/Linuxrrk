@@ -1,3 +1,61 @@
 RAID = Redundant Array of Independent Disk
 
 Disks grouped in level 1 RAID is also called a mirrored array.
+
+/proc/mdstat file contains the summary status of the RAID arrays so you can use cat /proc/mdstat command to view a summary status of your RAID arrays
+
+
+mdadm is a tool for creating, managing, and monitoring RAID devices using the md driver.
+
+Install mdadm on this system
+
+sudo dnf install mdadm -y
+
+======
+
+Create a level 1 RAID array, at /dev/md0, with two devices: /dev/vdc and /dev/vdd
+sudo mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/vdc /dev/vdd
+sudo mdadm --manage /dev/md0 --add /dev/vde
+
+
+Add another device, /dev/vde, to the previously created array, /dev/md0.
+sudo mdadm --manage /dev/md0 --add /dev/vde
+
+
+In your home directory you will find a file named specialfile. Add an ACL permission to this file so that the user called john can read and write to it.
+sudo setfacl --modify user:john:rw specialfile
+
+
+
+From the file called specialfile remove the ACL permissions for the user called john.
+sudo setfacl --remove user:john specialfile
+
+
+
+To the file called specialfile add an ACL permission for the group called mail. The mail group should get permissions to read and execute this file.
+sudo setfacl --modify group:mail:rx specialfile
+
+In your home directory you will find a directory called collection.
+Use the setfacl command recursively, so that ACL entries are modified on the directory itself but also all the files and subdirectories it may contain. 
+The ACL permissions should allow the user called john to read, write and execute all entries within this directory.
+setfacl --recursive --modify user:john:rwx collection/
+
+
+Remove the file called specialfile from your home directory. You will notice that not even sudo rm can remove this file. 
+That's because the file is currently immutable. 
+Remove the immutable flag from it and then delete the file
+
+Execute below given command:
+sudo chattr -i specialfile
+
+Remove the file:
+rm specialfil
+
+Edit disk quotas for the user called john. Set a soft limit of 100 megabytes and hard limit of 500 megabytes on /mnt partition
+sudo xfs_quota -x -c 'limit bsoft=100m bhard=500m john' /mnt/
+
+
+
+
+
+
