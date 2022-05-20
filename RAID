@@ -1,0 +1,3 @@
+RAID = Redundant Array of Independent Disk
+
+Disks grouped in level 1 RAID is also called a mirrored array.
