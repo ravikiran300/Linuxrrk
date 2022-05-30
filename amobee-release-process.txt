@@ -1,0 +1,609 @@
+===================================
+cd ~/workspace/turn/
+git fetch
+git checkout release/220518
+git checkout release/220601
+/home/rravada/workspace/turn/tools/scripts/rollorder.pl /home/rravada/workspace/turn/tools/resources/rollorder.properties /home/rravada/workspace/turn release/220518 release/220601
+
+===========================================================
+pssh -h  a -p 200 -O StrictHostKeyChecking=no -O UserKnownHostsFile=/dev/null "sudo -u apps ol-agent"
+ol-topology -c ~/workspace/turn/config/production.properties -o hosts -d atl1 >> hosts
+ol-topology -c ~/workspace/turn/config/production.properties -o hosts | grep -i  ^dm > datamine
+==========================================================================================================
+
+Release process
+================================
+
+
+http://app1928.atl1.turn.com:8000/job/push-config/
+
+https://ci01.turn.com/login?from=%2Fview%2Fproduction%2Fjob%2Fturn-production%2F
+
+http://fellow.turn.com:8080/patch/index
+
+================================================================================
+
+
+5pm
+downtime for all services
+./downtime -t all-overlord -d 18000
+
+5pm
+Downtime for runtime servers
+./downtime -t rtbps -d 18000
+./downtime -t s2sdc -d 18000
+./downtime -t consoleserver -d 18000
+./downtime -t presentationserver -d 18000
+./downtime -t adserver -d 180000
+
+
+
+Downtime for Pilot 
+
+./downtime -t rtbps -d 3600
+./downtime -t presentationserver -d 3600
+./downtime -t s2sdc -d 3600
+./downtime -t adserver -d 3600
+./downtime -t kvstore -d 1800
+
+
+========================================================================================================================  
+
+
+
+
+
+
+12:00:
+We are cutting release branch in next 1 hour, at 1 PM
+
+========================================================================================================================
+
+12:45:
+Does anyone still need a last-minute merge?
+
+========================================================================================================================
+
+http://app1928.atl1.turn.com:8000/job/release_branch_cut/
+
+13:00:
+Proceeding to branch cut
+Production branch cut to newest release/220309
+
+
+after build complete procced to push config once push config success restart all agents and distrube and install all servers except dm before 3pm
+========================================================================================================================
+
+3:00 PM
+
+./downtime -t offlinerepl -d 18000
+
+STOP offlinerepl service 
+
+https://bod.turn.com/#/list?controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fatl1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fams1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fhkg1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fpdx1%2F&sort=server_id&desc=false&filters%5Bserver_type%5D%5B%5D=offlinerepl&_k=z760e6
+
+========================================================================================================================
+03:00 PM
+Starting Pilot program. 
+adservers, rtbps, presentationserver, s2sdc,kvstore with 5% roll
+Percentage of server to patch: 5	
+Global smooth factor:	 1
+
+========================================================================================================================
+
+05:00 PM rolling runtime servers
+
+Rolling adservers, rtbps, presentationserver, s2sdc, contextual, proximity, impservers
+Bidding reduced to 0.2
+
+contextual, proximity, impserver(this is need to be completed first and procced to next step)
+
+https://bod.turn.com/#/list?controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fatl1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fams1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fhkg1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fpdx1%2F&sort=server_id&desc=false&filters%5Bserver_type%5D%5B%5D=contextual&filters%5Bserver_type%5D%5B%5D=proximity&filters%5Bserver_type%5D%5B%5D=impserver&_k=qgvfqr
+
+========================================================================================================================
+17:40:
+Stopping sup01(*)
+--------------
+Stop [sup01(*)]
+
+https://bod.turn.com/#/list?controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fatl1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fams1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fhkg1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fpdx1%2F&sort=server_id&desc=false&filters%5Bgroup%5D%5B%5D=sup01&filters%5Bgroup%5D%5B%5D=sup01-atl1&_k=3ihrn4
+
+========================================================================================================================
+
+17:50:
+Kill and redeploying the modified oozie jobs in ATL
+BoozieArgs: release atl2 atl2 DEPLOY -> http://app1928.atl1.turn.com:8000/job/boozie-command/507/console
+BoozieArgs: release release pdx pdx DEPLOY -> http://app1928.atl1.turn.com:8000/job/boozie-command/508/console
+--------------
+http://app1928.atl1.turn.com:8000/job/boozie-command/
+release atl2 atl2 DEPLOY
+release pdx pdx DEPLOY
+
+
+========================================================================================================================
+
+18:00:
+Stopping sup00 and sup07
+--------------
+Stop sup00(*), sup07(*)
+Stopping [sup00(*), sup07(*)]
+
+https://bod.turn.com/#/list?controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fatl1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fams1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fhkg1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fpdx1%2F&sort=server_id&desc=false&filters%5Bgroup%5D%5B%5D=sup00&_k=l730l5
+
+https://bod.turn.com/#/list?controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fatl1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fams1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fhkg1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fpdx1%2F&sort=server_id&desc=false&filters%5Bgroup%5D%5B%5D=sup07&_k=d05nol
+
+========================================================================================================================
+
+18:05:
+Stopping DB Dependent servers: 'app1725.atl1.turn.com', 'app1734.atl1.turn.com', 'app1893.atl1.turn.com', 'app1722.atl1.turn.com' 'app1910.atl1.turn.com' and 'app1911.atl1.turn.com' to Upgrade DB Schema
+---------------
+https://bod.turn.com/#/list?controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fatl1%2F&sort=server_id&desc=false&filters%5Bhostname%5D%5B%5D=app1725.atl1.turn.com&filters%5Bhostname%5D%5B%5D=app1734.atl1.turn.com&filters%5Bhostname%5D%5B%5D=app1893.atl1.turn.com&filters%5Bhostname%5D%5B%5D=app1722.atl1.turn.com&filters%5Bhostname%5D%5B%5D=app1910.atl1.turn.com&filters%5Bhostname%5D%5B%5D=app1911.atl1.turn.com&_k=s2p5kp
+
+========================================================================================================================
+Enabling Audit for product users on DB
+
+ssh app530.sjc2.turn.com
+sudo su - apps
+[apps@app530.sjc2.turn.com ~]$ pwd
+/home/apps
+
+sh audit_on_script_during_release.sh
+
+========================================================================================================================
+18:05:
+Starting the DB Upgrade
+---------------
+http://app1928.atl1.turn.com:8000/job/UpgradeDB/
+
+
+http://app1928.atl1.turn.com:8000/job/UpgradeDB/91/console
+========================================================================================================================
+Disabling Audit for product users on DB
+
+ssh app530.sjc2.turn.com
+sudo su - apps
+[apps@app530.sjc2.turn.com ~]$ pwd
+/home/apps
+
+sh audit_off_script_during_release.sh
+
+========================================================================================================================
+Wait for DB upgrade verification. Ben Wang
+
+console-atl-dev-prod1, console-atl-dev-prod2 deployed with the latest build and they are in InitializingModules, please validate and continue with console server deployment
+
+https://bod.turn.com/#/list?controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fatl1%2F&sort=server_id&desc=false&filters%5Bhostname%5D%5B%5D=app1910.atl1.turn.com&filters%5Bhostname%5D%5B%5D=app1911.atl1.turn.com&_k=kjkloc
+
+========================================================================================================================
+
+
+18:15:l
+Deploying ['sup00(*)', 'sup01(*)', 'sup02(*)', 'sup03(*)', 'sup04(*)', 'sup05(*)', 'sup06(*)', 'sup08(*)', 'sup09(*)'] with 220309
+---------------
+
+http://app1928.atl1.turn.com:8080/patch/rollForm
+
+sup04 - 25%
+sup05 - 25%
+sup06 - 25% - roll manually
+sup09 - 50%
+rest all 100&
+
+https://bod.turn.com/#/list?controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fams1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fatl1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fhkg1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fpdx1%2F&sort=server_id&desc=false&filters%5Bgroup%5D%5B%5D=sup00&filters%5Bgroup%5D%5B%5D=sup01&filters%5Bgroup%5D%5B%5D=sup01-atl1&filters%5Bgroup%5D%5B%5D=sup02&filters%5Bgroup%5D%5B%5D=sup02-ams1&filters%5Bgroup%5D%5B%5D=sup02-atl1&filters%5Bgroup%5D%5B%5D=sup02-hkg1&filters%5Bgroup%5D%5B%5D=sup02-pdx1&filters%5Bgroup%5D%5B%5D=sup03-ams1&filters%5Bgroup%5D%5B%5D=sup03-hkg1&filters%5Bgroup%5D%5B%5D=sup04-atl1&filters%5Bgroup%5D%5B%5D=sup04-hkg1&filters%5Bgroup%5D%5B%5D=sup05&filters%5Bgroup%5D%5B%5D=sup05-ams1&filters%5Bgroup%5D%5B%5D=sup05-atl1&filters%5Bgroup%5D%5B%5D=sup05-pdx1&filters%5Bgroup%5D%5B%5D=sup08&filters%5Bgroup%5D%5B%5D=sup09&_k=vw6e62
+
+========================================================================================================================
+
+18:15:
+restart datamine agents
+ol-topology -c ~/workspace/turn/config/production.properties -o hosts | grep -i  ^dm > datamine
+pssh -h  a -p 200 -O StrictHostKeyChecking=no -O UserKnownHostsFile=/dev/null "sudo -u apps ol-agent"
+Install Datamine
+---------------
+http://app1928.atl1.turn.com:8080/patch/installForm
+
+========================================================================================================================
+
+18:30:
+Roll reportstreamserver
+---------------
+
+roll 50%
+
+http://app1928.atl1.turn.com:8080/patch/rollForm
+
+https://bod.turn.com/#/list?controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fams1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fatl1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fhkg1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fpdx1%2F&sort=server_id&desc=false&filters%5Bserver_type%5D%5B%5D=reportstreamserver&_k=x4d3vp
+
+========================================================================================================================
+
+After datamine installation, need to contact Vinay for Manual operation, they need to install hive
+
+========================================================================================================================
+
+18:30:
+Hadoop Classpath Update
+---------------
+http://app1928.atl1.turn.com:8000/job/hadoop_classpath_update/
+release number in buildwithparameters
+
+========================================================================================================================
+
+Restarting the Hive servers after classpath update
+To restart the hive server
+
+Login to the below servers
+
+mn0006.atl2.turn.com
+mn0009.atl2.turn.com
+
+and execute the following command on both SJC and ATL servers
+sudo /etc/init.d/hiveserver status
+sudo /etc/init.d/hiveserver restart
+sudo /etc/init.d/hiveserver status
+
+========================================================================================================================
+
+19:00:
+Resuming oozie jobs
+BoozieArgs: release atl2 atl2 SUBMIT -> http://app1928.atl1.turn.com:8000/job/boozie-command/509/console
+BoozieArgs: release pdx pdx SUBMIT ->  http://app1928.atl1.turn.com:8000/job/boozie-command/510/console
+
+
+---------------
+http://app1928.atl1.turn.com:8000/job/boozie-command/
+release atl2 atl2 SUBMIT
+release pdx pdx SUBMIT
+release production production SUBMIT
+
+========================================================================================================================
+
+19:00:
+Start [sup07(*)]
+---------------
+
+can we keep ucclient2 and ucclient3 in SUP07 down during the release? We will manually bring them back.
+
+https://bod.turn.com/#/list?controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fams1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fatl1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fhkg1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fpdx1%2F&sort=server_id&desc=false&filters%5Bgroup%5D%5B%5D=sup07&_k=2gw15q
+
+========================================================================================================================
+
+19:15:
+Rolling scribejobservice, pastperfserver
+---------------
+
+https://bod.turn.com/#/list?controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fams1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fatl1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fhkg1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fpdx1%2F&sort=server_id&desc=false&filters%5Bserver_type%5D%5B%5D=scribejobservice&filters%5Bserver_type%5D%5B%5D=pastperfserver&_k=5d1nyb
+
+telcoredirect, aggregationserver, adscrawlerserver, pastperfserver, scribejobservice, entityintegrationserver, planningintegrationserver, gurobiserver
+
+https://bod.turn.com/#/list?controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fams1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fatl1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fhkg1%2F&controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fpdx1%2F&sort=server_id&desc=false&filters%5Bserver_type%5D%5B%5D=telcoredirect&filters%5Bserver_type%5D%5B%5D=aggregationserver&filters%5Bserver_type%5D%5B%5D=adscrawlerserver&filters%5Bserver_type%5D%5B%5D=pastperfserver&filters%5Bserver_type%5D%5B%5D=scribejobservice&filters%5Bserver_type%5D%5B%5D=entityintegrationserver&filters%5Bserver_type%5D%5B%5D=planningintegrationserver&filters%5Bserver_type%5D%5B%5D=gurobiserver&_k=klg0py
+
+
+========================================================================================================================
+
+Final:
+Check if any other dervers other than Dev group servers runnig with old build, if running, please roll manually
+
+Check the global smooth rate
+http://app1928.atl1.turn.com.com:8000/job/detect_smooth_factor/
+
+Check Server Alerts.
+http://app1928.atl1.turn.com:8000/job/server-alerts/
+
+Release completed, please validate all the services.
+
+
+
+==========================================
+
+
+Patch process
+=============
+https://intranet.amobee.com/display/RQA/For+Releng%3A+Production+Patch+Process
+
+doc for rollout and deploy in one DC
+
+SPCL DP
+
+For servers dont start services in bod to only deployment
+run ol-reload in that servers
+
+https://intranet.amobee.com/pages/viewpage.action?spaceKey=EN&title=MRIssues
+validate MR tickects
+prepare doc excel sheet for approved MR
+
+http://app393.sjc2.turn.com:8000/job/push-config/
+
+verify process 1.15 patch deployment  check job del
+prepare intranent page and save as draft
+wait for tar ball build completion
+run push config jenkins job
+once push config complete verify bod desired version(comes to redcolor)
+once validated install and distribute pkg
+Request for verification
+
+ol-topology -c ~/workspace/turn/config/production.properties  -o hosts -t rtbps >> all.list
+
+rtbps 210804 sjc2 210804-05
+https://ci01.turn.com/login?from=%2Fview%2Fproduction%2Fjob%2Fturn-production%2F
+
+
+
+http://app393.sjc2.turn.com:8000/job/push-config/
+
+http://fellow.turn.com:8080/patch/index
+
+distrubute
+install
+
+ops002.pdx1
+cd /tmp/overload
+
+Manually rolling  consoleservers app1031.sjc2.turn.com , app1027.sjc2.turn.com  and  app742.sjc2.turn.com
+add downtime for console servers
+https://nagios.turn.com/thruk/#cgi-bin/status.cgi?hidesearch=2&hidetop=&dfl_s0_hoststatustypes=15&dfl_s0_servicestatustypes=31&dfl_s0_hostprops=0&dfl_s0_serviceprops=0&style=detail&dfl_s0_type=search&dfl_s0_val_pre=&dfl_s0_op=%7E&dfl_s0_value=%09+consoleserver_turn_server_status&dfl_s0_value_sel=5
+
+2:30 PST  stop,active and start
+Update Merge Request tickets to Pending Verification
+send mail
+
+
+-----------------------------------------
+This is reqired when to want to rollback to previous version in BOD
+Build number must be last build 210707
+
+Login to app393.sjc2
+
+cd workspace/turn/config
+
+git checkout release/210519   (replace it with the corresponding production branch)
+
+git pull origin release/210519
+
+ git status      (Make sure the workspace is clean)
+
+vi .patch-version.txt
+
+git commit -am "[scm]Update patch version"
+
+git push origin HEAD
+
+No need to rebuild tarball for patch version change.  You can now proceed with 'push config'.
+
+app393 push config
+===================================
+
+distrube
+install
+----------------------------------
+
+
+http://app393.sjc2.turn.com:8000/job/hadoop_classpath_update/
+
+PDX DC => DURING DATAMINE DEPLOYMENT
+
+https://bod.turn.com/#/list-idle?controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fpdx1%2F&_k=90kuss
+
+
+
+Datamine in ATL distribute and install
+https://bod.turn.com/#/list-idle?controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fatl1%2F&filters%5BmachineComment%5D%5B%5D=Datamine&filters%5BmachineComment%5D%5B%5D=Datamine+Master+Node&filters%5BmachineComment%5D%5B%5D=HadoopCMBackupServer&filters%5BmachineComment%5D%5B%5D=HadoopCMServer&filters%5BmachineComment%5D%5B%5D=HadoopNameNode&filters%5BmachineComment%5D%5B%5D=HadoopNameNode1&filters%5BmachineComment%5D%5B%5D=HadoopNameNode2&filters%5BmachineComment%5D%5B%5D=JobTracker&filters%5BmachineComment%5D%5B%5D=sdm&filters%5BmachineComment%5D%5B%5D=dod_prod_master&filters%5BmachineComment%5D%5B%5D=dod_prod_worker&filters%5BmachineComment%5D%5B%5D=SecondaryNameNode&filters%5Bcontroller%5D%5B%5D=atl1&_k=awo3cz
+
+classpath
+
+python update_hadoop_classpath.py -c ATL -b buldnumber-04 --deploy
+
+Patch Completed.
+I request all requesters to validate the patch and either close MR tickets or add comments (in case non-successful)
+
+
+===============
+
+#!/usr/bin/python
+
+import commands
+import os
+import re
+import socket
+import sys
+import time
+from optparse import OptionParser
+import getpass
+
+LIVESTATUS_PORT = 6557
+USER = getpass.getuser()
+
+def livestatus_request(host, cmd):
+    request = "%s\n" % cmd
+    print "[%s:%d] - %s" % (host, LIVESTATUS_PORT, request)
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.settimeout(10)
+    s.connect((host, LIVESTATUS_PORT))
+    s.send(request)
+    s.close()
+
+def schedule_downtime(colo, duration, host=None, comment=None):
+    """
+    SCHEDULE_SVC_DOWNTIME;<host_name>;<service_desription>;<start_time>;<end_time>;<fixed>;<trigger_id>;<duration>;<author>;<comment>
+    """
+    start = time.time()
+    end = start + duration
+    cmd = "COMMAND [%d] " % start
+    host = re.sub(r'<colo>', colo, host)
+    if comment:
+        cmd += "SCHEDULE_HOST_DOWNTIME;%s" % host
+        cmd += ";%d;%d;1;0;%d;" % (start, end, duration)
+        cmd += USER+";"+comment
+    elif host:
+        cmd += "SCHEDULE_HOST_DOWNTIME;%s" % host
+        cmd += ";%d;%d;1;0;%d;" % (start, end, duration)
+        cmd += USER+";Donwtime Comment"
+    livestatus_request("nagios.%s.turn.com" % colo, cmd)
+
+def main():
+    global options, duration_seconds
+
+    usage_text = """
+
+    python downtime.py -o apps123.sjc2 -d 300 -c "Downtime Comment"
+
+    """
+    parser = OptionParser(usage=usage_text)
+    parser.add_option("-o",
+        dest="host",
+        help="host name (Mandatory)",
+        metavar="HOST"
+    )
+    parser.add_option("-d",
+        dest="duration",
+        help="duration of downtime, with optional suffix ('s', 'm', or 'h')",
+        metavar="DURATION",
+        default="300"
+    )
+    parser.add_option("-c",
+        dest="comment",
+        help="Downtme Comment",
+        metavar="COMMENT"
+    )
+    (options, args) = parser.parse_args()
+
+    duration_seconds = None
+    matches = re.match(r'^(\d+)([smh])?$', options.duration)
+    if matches == None:
+        print "The duration must be a number with an optional suffix (s for seconds, m for minutes, h for hours)"
+        parser.print_help()
+        sys.exit(1)
+    if matches.group(2) is None:
+        duration_seconds = int(options.duration)
+    else:
+        multiplier = { 's': 1, 'm': 60, 'h': 60 * 60 }
+        duration_seconds = int(matches.group(1)) * multiplier[matches.group(2)]
+    if options.host:
+        if not options.host.endswith('.turn.com'):
+            options.host = "%s.turn.com" % options.host
+            colo = options.host.split('.')[1].strip()
+    else:
+        parser.print_help()
+        sys.exit(1)
+    if options.comment:
+        schedule_downtime(colo, duration_seconds, host=options.host, comment=options.comment)
+    else:
+        schedule_downtime(colo, duration_seconds, host=options.host)
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Patch process
+=============
+https://intranet.amobee.com/display/RQA/For+Releng%3A+Production+Patch+Process
+
+doc for rollout and deploy in one DC
+
+SPCL DP
+
+For servers dont start services in bod to only deployment
+run ol-reload in that servers
+
+https://intranet.amobee.com/pages/viewpage.action?spaceKey=EN&title=MRIssues
+validate MR tickects
+prepare doc excel sheet for approved MR
+
+http://app393.sjc2.turn.com:8000/job/push-config/
+
+verify process 1.15 patch deployment  check job del
+prepare intranent page and save as draft
+wait for tar ball build completion
+run push config jenkins job
+once push config complete verify bod desired version(comes to redcolor)
+once validated install and distribute pkg
+Request for verification
+
+ol-topology -c ~/workspace/turn/config/production.properties  -o hosts -t rtbps >> all.list
+
+rtbps 210804 sjc2 210804-05
+https://ci01.turn.com/login?from=%2Fview%2Fproduction%2Fjob%2Fturn-production%2F
+
+
+
+http://app393.sjc2.turn.com:8000/job/push-config/
+
+http://fellow.turn.com:8080/patch/index
+
+distrubute
+install
+
+ops002.pdx1
+cd /tmp/overload
+
+Manually rolling  consoleservers app1031.sjc2.turn.com , app1027.sjc2.turn.com  and  app742.sjc2.turn.com
+add downtime for console servers
+https://nagios.turn.com/thruk/#cgi-bin/status.cgi?hidesearch=2&hidetop=&dfl_s0_hoststatustypes=15&dfl_s0_servicestatustypes=31&dfl_s0_hostprops=0&dfl_s0_serviceprops=0&style=detail&dfl_s0_type=search&dfl_s0_val_pre=&dfl_s0_op=%7E&dfl_s0_value=%09+consoleserver_turn_server_status&dfl_s0_value_sel=5
+
+2:30 PST  stop,active and start
+Update Merge Request tickets to Pending Verification
+send mail
+
+
+-----------------------------------------
+This is reqired when to want to rollback to previous version in BOD
+Build number must be last build 210707
+
+Login to app393.sjc2
+
+cd workspace/turn/config
+
+git checkout release/210519   (replace it with the corresponding production branch)
+
+git pull origin release/210519
+
+ git status      (Make sure the workspace is clean)
+
+vi .patch-version.txt
+
+git commit -am "[scm]Update patch version"
+
+git push origin HEAD
+
+No need to rebuild tarball for patch version change.  You can now proceed with 'push config'.
+
+app393 push config
+===================================
+
+distrube
+install
+----------------------------------
+
+
+http://app393.sjc2.turn.com:8000/job/hadoop_classpath_update/
+
+PDX DC => DURING DATAMINE DEPLOYMENT
+
+https://bod.turn.com/#/list-idle?controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fpdx1%2F&_k=90kuss
+
+
+
+Datamine in ATL distribute and install
+https://bod.turn.com/#/list-idle?controllers%5B%5D=https%3A%2F%2Fbod.turn.com%2Fcontroller%2Fatl1%2F&filters%5BmachineComment%5D%5B%5D=Datamine&filters%5BmachineComment%5D%5B%5D=Datamine+Master+Node&filters%5BmachineComment%5D%5B%5D=HadoopCMBackupServer&filters%5BmachineComment%5D%5B%5D=HadoopCMServer&filters%5BmachineComment%5D%5B%5D=HadoopNameNode&filters%5BmachineComment%5D%5B%5D=HadoopNameNode1&filters%5BmachineComment%5D%5B%5D=HadoopNameNode2&filters%5BmachineComment%5D%5B%5D=JobTracker&filters%5BmachineComment%5D%5B%5D=sdm&filters%5BmachineComment%5D%5B%5D=dod_prod_master&filters%5BmachineComment%5D%5B%5D=dod_prod_worker&filters%5BmachineComment%5D%5B%5D=SecondaryNameNode&filters%5Bcontroller%5D%5B%5D=atl1&_k=awo3cz
+
+classpath
+
+python update_hadoop_classpath.py -c ATL -b buldnumber-04 --deploy
+
+Patch Completed.
+I request all requesters to validate the patch and either close MR tickets or add comments (in case non-successful)
+
+
+
+===========================
