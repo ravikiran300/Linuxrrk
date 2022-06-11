@@ -18,6 +18,64 @@ https://www.geeksforgeeks.org/difference-between-hard-link-and-soft-link/
 Access Control Lists(ACL) in Linux
 https://www.geeksforgeeks.org/access-control-listsacl-linux/#:~:text=What%20is%20ACL%20%3F,group%20to%20any%20disc%20resource.
 
+0: stdin
+1: stdout
+2: stderr
+
+ls > capture.txt (stdout)
+
+To explicitly redirect  stdout, use this redirection instruction:
+To explicitly redirect  stderr, use this redirection instruction:
+
+Redirecting stdout and stderr to the Same File
+
+./error.sh 2> capture.txt
+./error.sh > capture.txt 2>&1
+
+cat > ravi.txt
+
+cut
+awk
+grep and egrep
+sort
+uniq
+wc
+
+useradd –g superheros –s /bin/bash –c “user description” –m –d /home/spiderman spiderman
+
+
+/etc/passwd
+/etc/shadow
+/etc/group
+
+https://askubuntu.com/questions/445361/what-is-difference-between-etc-shadow-and-etc-passwd
+
+su has only one purpose: to start a shell running as the given user (root by default).
+
+sudo is a highly configurable program that lets you run any command as any user,
+with the configuration allowing the local administrator to place limits on what commands you can run using sudo, 
+as well as which commands require your password.
+
+
+CTRL-u   - erase everything you've typed on the command line
+CTRL-c   - stop/kill a command
+CTRL-z   - suspend a command
+CTRL-d   - exit from an interactive program (signals end of data).
+
+ setuid, setgid and stick bit
+ rsync 
+ Linux chronyd (New Version of NTP)
+
+Linux Sendmail
+
+Installation and Configuration of Network File System (NFS)
+
+Linux Samba Installation and Configuration
+
+
+
+
+
 Runlevel: 
 
 Determines the state of a system and controls how one
