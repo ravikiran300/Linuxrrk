@@ -76,6 +76,11 @@ https://www.geeksforgeeks.org/shift-command-in-linux-with-examples/
 
 Linux Samba Installation and Configuration
 
+shift is a bash built-in which kind of removes arguments from the beginning of the argument list. 
+Given that the 3 arguments provided to the script are available in $1, $2, $3, then a call to shift will make $2 the new $1.
+A shift 2 will shift by two making new $1 the old $3. For more information, see here:
+
+
 
 
 
