@@ -15,6 +15,9 @@ hardlink and softlink:-
 
 https://www.geeksforgeeks.org/difference-between-hard-link-and-soft-link/
 
+Access Control Lists(ACL) in Linux
+https://www.geeksforgeeks.org/access-control-listsacl-linux/#:~:text=What%20is%20ACL%20%3F,group%20to%20any%20disc%20resource.
+
 Runlevel: 
 
 Determines the state of a system and controls how one
