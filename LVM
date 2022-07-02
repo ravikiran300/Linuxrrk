@@ -6,7 +6,8 @@ Inside extended partition, you can create as many logical partitions.
 
 Hope it helps.
 
-
+enables the combining of multiple individual hard drives and/or disk partitions into a single volume group (VG)
+That volume group can then be subdivided into logical volumes (LV) or used as a single large volum
 
 The concept of logical volume management is very much similar to the concept of virtualization, i.e.
 you can create as many virtual storage volumes on top of a single storage device as you want. 
