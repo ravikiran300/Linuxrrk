@@ -42,3 +42,17 @@ get_mount_partitions() {
                 fi
         done
 }
+
+# Exclude /proc and /sys for faster execution
+if [ $# -eq 0 ]; then
+        flag=0
+        find_disk_usage / --exclude=/proc --exclude=/sys
+else
+        flag=1
+        data=$1
+        get_mount_partitions "${data}"
+        for mountpoint in "${mountpoint_list[@]}"; do
+                find_disk_usage $mountpoint --exclude=/proc --exclude=/sys
+        done
+fi
+
